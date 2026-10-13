@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rinconcito Dulcesito · Postres por pedido en Puruándiro</title>
+<meta name="description" content="Pays de queso light, gelatina de kéfir, donas con Oreo, bebidas de fresa con tapioca y pasteles por pedido en Puruándiro, Michoacán. Envío a domicilio.">
+<meta name="theme-color" content="#2A140D">
+<meta property="og:title" content="Rinconcito Dulcesito">
+<meta property="og:description" content="Postres por pedido en Puruándiro. Pide por WhatsApp y te lo llevamos.">
+<meta property="og:image" content="assets/logo.webp">
+<link rel="icon" href="assets/icono.png">
+<link rel="preload" href="assets/fuentes/anton.woff" as="font" type="font/woff" crossorigin>
+<style>
+@font-face{font-family:'Anton';src:url(assets/fuentes/anton.woff) format('woff');font-display:swap}
+@font-face{font-family:'Kaushan Script';src:url(assets/fuentes/kaushan.woff) format('woff');font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url(assets/fuentes/bricolage.woff) format('woff');font-weight:400 800;font-display:swap}
+:root{
+  --chocolate:#2A140D; --cacao:#5B2A18; --fresa:#FF3D7F; --algodon:#FFC2D4; --leche:#FFEDF2; --caramelo:#F29A2E; --mermelada:#D7193A;
+  --bg:#2A140D; --ink:#FFEDF2; --acc:#FF3D7F;
+  --t-display:'Anton', Impact, 'Arial Narrow', sans-serif;
+  --t-brocha:'Kaushan Script', 'Brush Script MT', cursive;
+  --t-texto:'Bricolage Grotesque', system-ui, sans-serif;
+  --pad:clamp(16px, 4vw, 56px);
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--t-texto);font-size:clamp(16px,1.05vw + 10px,19px);line-height:1.5;
+  transition:background-color .7s var(--ease), color .7s var(--ease);overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:4px;border-radius:8px}
+.oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Grano sutil ---------- */
+.grano{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.09;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano 1s steps(4) infinite}
+@keyframes grano{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* ---------- Tipografía ---------- */
+.gigante{font-family:var(--t-display);font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:.005em;margin:0}
+.gigante > span{display:block;white-space:nowrap}
+.t-lleno{color:var(--ink)}
+.t-contorno{color:transparent;-webkit-text-stroke:var(--trazo,2px) var(--acc)}
+@supports not (-webkit-text-stroke:1px black){.t-contorno{color:var(--acc)}}
+.brocha{padding-left:.12em;font-family:var(--t-brocha);color:var(--acc);font-size:clamp(1.5rem,2.6vw,2.6rem);line-height:1.1;margin:0 0 .3em;
+  transform:rotate(-6deg);transform-origin:left bottom;display:inline-block}
+.ajusta{font-size:clamp(3.5rem,12vw,12rem)}
+
+/* ---------- Botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:58px;padding:.9em 1.9em;border-radius:999px;border:0;
+  font-family:var(--t-display);font-size:clamp(1.05rem,1.3vw,1.3rem);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background-color .3s;will-change:transform}
+.btn:hover{transform:rotate(-3deg) scale(1.04)}
+.btn:active{transform:rotate(-1deg) scale(.97)}
+.btn-fresa{background:var(--fresa);color:#fff;box-shadow:0 10px 30px -8px rgba(255,61,127,.7)}
+.btn-tinta{background:var(--ink);color:var(--bg)}
+.btn-linea{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 3px var(--ink)}
+.btn-chico{min-height:48px;padding:.6em 1.3em;font-size:1rem}
+.btn svg{width:1.3em;height:1.3em}
+
+/* ---------- Intro ---------- */
+#intro{position:fixed;inset:0;z-index:100;background:var(--fresa);display:grid;place-content:center;gap:0;pointer-events:none;overflow:hidden;
+  animation:intro-sale .6s var(--ease) 1.25s forwards}
+#intro img{width:96px;height:96px;margin:0 auto 14px;border-radius:50%;animation:intro-logo .5s var(--ease) both;box-shadow:0 10px 30px rgba(42,20,13,.35)}
+#intro span{font-family:var(--t-display);font-size:clamp(3.2rem,15vw,12rem);line-height:.85;text-align:center;display:block}
+#intro .i1{color:transparent;-webkit-text-stroke:2px var(--chocolate);animation:intro-izq .7s var(--ease) .1s both}
+#intro .i2{color:var(--chocolate);animation:intro-der .7s var(--ease) .22s both}
+@keyframes intro-izq{from{transform:translateX(-60vw) skewX(-12deg)}}
+@keyframes intro-der{from{transform:translateX(60vw) skewX(12deg)}}
+@keyframes intro-logo{from{transform:scale(0) rotate(-90deg)}}
+@keyframes intro-sale{to{clip-path:inset(0 0 100% 0)}}
+#intro{clip-path:inset(0 0 0 0)}
+
+/* ---------- Barra superior ---------- */
+.barra{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px var(--pad);padding-top:max(12px, env(safe-area-inset-top));transition:background-color .4s, box-shadow .4s, transform .4s var(--ease)}
+.barra.solida{background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marca img{width:44px;height:44px;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.marca b{font-family:var(--t-brocha);font-weight:400;font-size:1.35rem;line-height:1}
+.barra nav{display:flex;align-items:center;gap:clamp(8px,2vw,28px)}
+.barra nav a.enlace{font-weight:800;text-decoration:none;font-size:.95rem;letter-spacing:.02em}
+.barra nav a.enlace:hover{color:var(--acc)}
+@media (max-width:700px){.barra nav a.enlace{display:none}.marca b{font-size:1.15rem}}
+
+/* ---------- Escenas ---------- */
+.escena{position:relative;min-height:100svh;padding:clamp(90px,12vh,140px) var(--pad) clamp(60px,10vh,120px);overflow:hidden;
+  background:var(--sbg);color:var(--sink);--ink:var(--sink);--acc:var(--sacc);--bg:var(--sbg)}
+html.color-vivo .escena{background:transparent;color:inherit;--ink:var(--ink-g);--acc:var(--acc-g);--bg:var(--bg-g)}
+:root{--bg-g:#2A140D;--ink-g:#FFEDF2;--acc-g:#FF3D7F}
+
+/* ---------- Hero ---------- */
+.hero{display:flex;flex-direction:column;justify-content:center}
+.hero-txt{position:relative;z-index:3;max-width:1500px}
+.hero .gigante span:first-child{margin-bottom:.02em}
+.hero-sub{max-width:34ch;font-size:clamp(1.05rem,1.4vw,1.35rem);margin:1.2em 0 1.6em;font-weight:600}
+.acciones{display:flex;flex-wrap:wrap;gap:14px}
+.hero-prods{position:absolute;z-index:2;right:0;top:0;bottom:0;width:58%;pointer-events:none}
+.flota{position:absolute;will-change:transform}
+.flota > *{width:100%;height:auto;filter:drop-shadow(0 30px 30px rgba(0,0,0,.45));animation:flotar 6s ease-in-out infinite}
+.flota:nth-child(2) > *{animation-duration:7.5s;animation-delay:-2s}
+.flota:nth-child(3) > *{animation-duration:6.8s;animation-delay:-4s}
+@keyframes flotar{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-18px) rotate(3deg)}}
+.hp-1{width:clamp(220px,30vw,520px);right:4%;top:30%}
+.hp-2{width:clamp(140px,17vw,300px);right:30%;top:9%}
+.hp-3{width:clamp(170px,21vw,360px);right:30%;bottom:2%}
+.chispas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.luces{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.luces span{position:absolute;top:-30%;left:-40%;width:18%;height:160%;transform:rotate(24deg);
+  background:linear-gradient(90deg,transparent,rgba(255,194,212,.16),transparent);animation:luz 9s linear infinite}
+.luces span:nth-child(2){animation-delay:-4.5s;width:8%}
+@keyframes luz{from{left:-40%}to{left:130%}}
+@media (max-width:820px){
+  .hero{justify-content:flex-start;padding-top:96px}
+  .hero-prods{position:relative;width:100%;height:92vw;max-height:480px;margin-top:8px;order:2}
+  .hp-1{width:62vw;right:0;top:14%}
+  .hp-2{width:36vw;right:auto;left:2%;top:0}
+  .hp-3{width:46vw;right:auto;left:8%;bottom:-4%}
+}
+
+/* ---------- Stickers ---------- */
+.sticker{position:absolute;z-index:5;font-family:var(--t-display);font-size:clamp(.85rem,1.1vw,1.1rem);letter-spacing:.05em;text-transform:uppercase;
+  padding:.65em 1.1em;border-radius:12px;background:var(--st-bg,#FFC2D4);color:var(--st-ink,#2A140D);cursor:grab;user-select:none;touch-action:none;
+  transform:translate(var(--dx,0px),var(--dy,0px)) rotate(var(--r,-8deg));box-shadow:0 6px 0 rgba(0,0,0,.18), 0 14px 26px rgba(0,0,0,.2);
+  border:2px dashed rgba(42,20,13,.25);transition:box-shadow .2s, scale .2s}
+.sticker::after{content:'';position:absolute;inset:3px;border-radius:9px;border:1px solid rgba(255,255,255,.5);pointer-events:none}
+.sticker:hover{scale:1.06}
+.sticker.arrastrando{cursor:grabbing;scale:1.1;box-shadow:0 12px 0 rgba(0,0,0,.15), 0 26px 40px rgba(0,0,0,.3);z-index:20}
+.st-a{left:52%;top:15%}.st-b{right:6%;bottom:12%}.st-c{right:8%;top:18%}
+@media (max-width:820px){.sticker{font-size:.78rem}.st-a{left:auto;right:5%;top:auto;bottom:34%}.st-b{right:auto;left:5%;bottom:3%}.st-c{top:auto;bottom:22px;right:6%}}
+
+/* ---------- Cintas en diagonal ---------- */
+.cintas{position:relative;height:clamp(220px,32vw,420px);overflow:hidden;background:var(--chocolate)}
+html.color-vivo .cintas{background:transparent}
+.cinta{position:absolute;left:-10%;width:120%;white-space:nowrap;font-family:var(--t-display);font-size:clamp(2rem,5.6vw,5.4rem);line-height:1;padding:.22em 0;text-transform:uppercase}
+.cinta-1{top:16%;background:var(--fresa);color:var(--chocolate);transform:rotate(-5deg);z-index:2;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.cinta-2{top:54%;background:var(--leche);color:transparent;-webkit-text-stroke:2px var(--chocolate);transform:rotate(4deg)}
+.cinta-pista{display:inline-block;will-change:transform}
+.cinta-pista i{font-style:normal;display:inline-block;margin:0 .35em;color:var(--mermelada);-webkit-text-stroke:0}
+
+/* ---------- Escena de producto ---------- */
+.pe{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(20px,4vw,70px)}
+.pe > *{min-width:0}
+.pe.der .pe-arte{order:2}
+.pe-arte{position:relative;aspect-ratio:1;max-height:82vh;width:100%;display:grid;place-items:center}
+.pe-arte .halo{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--ink) 18%, transparent), transparent 68%)}
+.pe-arte .mueve{width:108%;max-width:none;will-change:transform}
+.pe-arte .mueve > *{width:100%;height:auto;filter:drop-shadow(0 40px 34px rgba(0,0,0,.38))}
+.pe-arte .es-foto{border-radius:50%;aspect-ratio:1;object-fit:cover;width:84%;margin:0 auto}
+.pe-desc{max-width:40ch;font-size:clamp(1.05rem,1.3vw,1.3rem);font-weight:600;margin:1em 0 1.2em}
+.pe-lista{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:620px}
+.pe-item{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center;padding:14px 0;border-top:2px solid color-mix(in srgb, var(--ink) 25%, transparent)}
+.pe-item h3{margin:0;font-size:1.12rem;font-weight:800;line-height:1.2}
+.pe-item .ops{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px}
+.etis{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.eti{font-size:.75rem;font-weight:800;padding:.25em .7em;border-radius:999px;background:color-mix(in srgb, var(--ink) 14%, transparent)}
+.op{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:.4em .55em .4em 1.1em;border-radius:999px;border:0;cursor:pointer;
+  background:var(--ink);color:var(--bg);font-weight:800;transition:transform .3s var(--ease)}
+.op:hover{transform:rotate(-3deg) scale(1.03)}
+.op b{font-family:var(--t-display);font-weight:400;font-size:1.25rem;letter-spacing:.02em}
+.op .mas{width:34px;height:34px;border-radius:50%;background:var(--fresa);color:#fff;display:grid;place-items:center;font-size:1.3rem;line-height:1}
+@media (max-width:820px){
+  .pe{grid-template-columns:1fr}
+  .pe.der .pe-arte{order:0}
+  .pe-arte{max-width:520px;margin:0 auto;max-height:none}
+}
+
+/* ---------- Texto que se ilumina ---------- */
+.manifiesto{display:grid;align-content:center;min-height:120svh}
+.ilumina{font-family:var(--t-display);font-size:clamp(2.3rem,6.4vw,6.6rem);line-height:1.02;text-transform:uppercase;margin:0;max-width:16ch}
+.ilumina span{opacity:.16;transition:opacity .35s, color .35s}
+.ilumina span.on{opacity:1}
+.ilumina span.acento.on{color:var(--fresa)}
+
+/* ---------- Pasteles nuevos ---------- */
+.nuevos-cab > div:first-child{flex:1 1 58%;min-width:0}
+@media (max-width:820px){.nuevos-cab > div:first-child{flex-basis:100%}}
+.nuevos-cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px}
+.flechas{display:flex;gap:10px}
+.flecha{width:60px;height:60px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);font-size:1.5rem;cursor:pointer;transition:transform .3s var(--ease)}
+.flecha:hover{transform:rotate(-8deg) scale(1.08)}
+.riel{scroll-padding-inline:var(--pad);display:flex;gap:clamp(18px,3vw,48px);overflow-x:auto;scroll-snap-type:x mandatory;padding:30px var(--pad) 20px;margin:20px calc(-1 * var(--pad)) 0;
+  scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
+.riel::-webkit-scrollbar{display:none}
+.riel.arrastrando{cursor:grabbing;scroll-snap-type:none}
+.pastel{flex:0 0 clamp(260px,28vw,400px);scroll-snap-align:start;position:relative}
+.pastel .base{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.pastel .base::before{content:'';position:absolute;inset:10%;border-radius:50%;background:var(--pc);opacity:.95;transform:scale(.92);transition:transform .5s var(--ease)}
+.pastel:hover .base::before{transform:scale(1.02) rotate(8deg)}
+.pastel .base > *{position:relative;width:104%;max-width:none;filter:drop-shadow(0 28px 22px rgba(42,20,13,.42));transition:transform .5s var(--ease)}
+.pastel:hover .base > *{transform:translateY(-12px) rotate(-4deg)}
+.pastel h3{font-family:var(--t-display);font-weight:400;font-size:clamp(1.7rem,2.4vw,2.4rem);line-height:1;text-transform:uppercase;margin:6px 0 6px}
+.pastel p{margin:0 0 12px;font-weight:600;max-width:32ch}
+.pastel .precio{font-family:var(--t-display);font-size:2.6rem;line-height:1}
+.pastel .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.nuevo-sello{position:absolute;top:4%;right:4%;z-index:2;font-family:var(--t-brocha);font-size:1.25rem;background:var(--chocolate);color:var(--leche);
+  padding:.35em .9em;border-radius:999px;transform:rotate(10deg)}
+
+/* ---------- Menú completo ---------- */
+.filtros{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 34px}
+.filtro{min-height:48px;padding:.5em 1.3em;border-radius:999px;border:0;cursor:pointer;font-family:var(--t-display);letter-spacing:.05em;font-size:1.05rem;text-transform:uppercase;
+  background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink);transition:transform .3s var(--ease), background-color .2s}
+.filtro:hover{transform:rotate(-3deg)}
+.filtro[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:clamp(26px,3vw,48px) clamp(18px,2.4vw,36px)}
+.m-item{display:flex;flex-direction:column}
+.m-item .base{position:relative;aspect-ratio:1.15;display:grid;place-items:center}
+.m-item .base::before{content:'';position:absolute;width:74%;aspect-ratio:1;border-radius:50%;background:var(--pc);transition:transform .5s var(--ease)}
+.m-item:hover .base::before{transform:scale(1.08)}
+.m-item .base > *{position:relative;width:88%;filter:drop-shadow(0 22px 18px rgba(42,20,13,.35));transition:transform .5s var(--ease)}
+.m-item .base > .es-foto{width:66%;aspect-ratio:1;object-fit:cover;border-radius:50%}
+.m-item:hover .base > *{transform:translateY(-10px) rotate(-3deg)}
+.m-item h3{font-family:var(--t-display);font-weight:400;font-size:1.65rem;line-height:1.02;text-transform:uppercase;margin:8px 0 4px}
+.m-item p{margin:0 0 10px;font-size:.98rem;opacity:.85}
+.m-item .ops{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.vacio{grid-column:1/-1;font-weight:700}
+
+/* ---------- Pasos ---------- */
+.pasos-lista{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,56px);counter-reset:paso}
+.pasos-lista li{counter-increment:paso}
+.pasos-lista li::before{content:counter(paso);display:block;font-family:var(--t-display);font-size:clamp(7rem,14vw,14rem);line-height:.8;color:transparent;-webkit-text-stroke:3px var(--acc);margin-bottom:12px}
+.pasos-lista h3{font-family:var(--t-display);font-weight:400;font-size:clamp(1.7rem,2.4vw,2.4rem);text-transform:uppercase;margin:0 0 8px;line-height:1}
+.pasos-lista p{margin:0;max-width:30ch}
+@media (max-width:820px){.pasos-lista{grid-template-columns:1fr}.pasos-lista li{display:grid;grid-template-columns:auto 1fr;gap:0 18px;align-items:start}.pasos-lista li::before{grid-row:span 2;font-size:6.5rem}}
+
+/* ---------- Final ---------- */
+.final{display:flex;flex-direction:column;justify-content:center}
+.final .datos{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;font-weight:700}
+.final .datos span{display:inline-flex;align-items:center;gap:8px}
+.final .datos svg{width:22px;height:22px;flex:none}
+.final-dona{position:absolute;right:-4vw;bottom:-3vw;width:clamp(260px,42vw,640px);opacity:1;z-index:0;pointer-events:none}
+.final-dona > *{filter:drop-shadow(0 40px 40px rgba(42,20,13,.35))}
+.final > *:not(.final-dona){position:relative;z-index:1}
+@media (max-width:820px){
+  .escena{min-height:auto;padding-top:96px;padding-bottom:72px}
+  .hero,.manifiesto{min-height:100svh}
+  .final-dona{position:relative;right:auto;bottom:auto;width:72vw;align-self:flex-end;margin:24px -8px -40px 0;order:9}
+  .rejilla{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 14px}
+  .m-item h3{font-size:1.2rem}
+  .m-item p{font-size:.84rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .m-item .ops{flex-direction:column;align-items:stretch}
+  .m-item .op{font-size:.8rem;min-height:44px;padding:.3em .35em .3em .8em;gap:6px;justify-content:space-between;text-align:left;line-height:1.1}
+  .m-item .op b{margin-left:auto}
+  .m-item .op b{font-size:1.05rem}
+  .m-item .op .mas{width:28px;height:28px}
+}
+footer{padding:28px var(--pad) calc(110px + env(safe-area-inset-bottom));background:var(--chocolate);color:var(--leche);font-size:.92rem;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;position:relative;z-index:2}
+footer a{font-weight:700}
+
+/* ---------- Carrito ---------- */
+.carrito-btn{position:fixed;z-index:45;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));min-height:62px;padding:.5em .6em .5em 1.4em;
+  border-radius:999px;border:0;background:var(--chocolate);color:var(--leche);display:flex;align-items:center;gap:12px;cursor:pointer;
+  font-family:var(--t-display);font-size:1.15rem;letter-spacing:.05em;box-shadow:0 14px 34px rgba(0,0,0,.35), 0 0 0 3px var(--leche);transition:transform .35s var(--ease)}
+.carrito-btn:hover{transform:rotate(-4deg) scale(1.04)}
+.carrito-btn .num{min-width:44px;height:44px;border-radius:999px;background:var(--fresa);color:#fff;display:grid;place-items:center;padding:0 10px}
+.carrito-btn.salta{animation:salta .5s var(--ease)}
+@keyframes salta{30%{transform:scale(1.18) rotate(-6deg)}}
+.velo{position:fixed;inset:0;z-index:70;background:rgba(42,20,13,.55);opacity:0;pointer-events:none;transition:opacity .3s}
+.velo.abierto{opacity:1;pointer-events:auto}
+.cajon{position:fixed;z-index:71;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--leche);color:var(--chocolate);display:flex;flex-direction:column;
+  transform:translateX(102%);transition:transform .45s var(--ease);box-shadow:-20px 0 60px rgba(0,0,0,.3)}
+.cajon.abierto{transform:none}
+.cajon-cab{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;padding-top:max(18px,env(safe-area-inset-top))}
+.cajon-cab h2{font-family:var(--t-display);font-weight:400;font-size:2.2rem;margin:0;line-height:1;text-transform:uppercase}
+.cerrar{width:48px;height:48px;border-radius:50%;border:0;background:var(--chocolate);color:var(--leche);font-size:1.5rem;cursor:pointer}
+.cajon-cuerpo{flex:1;overflow:auto;padding:0 20px 20px}
+.renglon{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:2px dashed rgba(42,20,13,.18)}
+.renglon .mini{width:64px;height:64px;border-radius:50%;background:var(--pc);display:grid;place-items:center;overflow:hidden}
+.renglon .mini > *{width:120%;max-width:none}
+.renglon .mini > .es-foto{width:100%;height:100%;object-fit:cover}
+.renglon b{display:block;line-height:1.2}
+.renglon small{opacity:.75}
+.cant{display:flex;align-items:center;gap:6px}
+.cant button{width:36px;height:36px;border-radius:50%;border:2px solid var(--chocolate);background:transparent;cursor:pointer;font-weight:800;font-size:1.1rem}
+.cant span{min-width:20px;text-align:center;font-weight:800}
+.formulario{display:grid;gap:12px;margin-top:18px}
+.formulario label{display:grid;gap:4px;font-weight:800;font-size:.9rem}
+.formulario input,.formulario select,.formulario textarea{font:inherit;font-weight:500;padding:12px 14px;border-radius:14px;border:2px solid rgba(42,20,13,.25);background:#fff;color:var(--chocolate);min-height:48px}
+.formulario textarea{min-height:70px;resize:vertical}
+.segmento{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.segmento input{position:absolute;opacity:0}
+.segmento label{display:block;text-align:center;padding:12px;border-radius:14px;border:2px solid rgba(42,20,13,.25);cursor:pointer;font-weight:800}
+.segmento input:checked + label{background:var(--chocolate);color:var(--leche);border-color:var(--chocolate)}
+.segmento input:focus-visible + label{outline:3px solid var(--fresa);outline-offset:2px}
+.cajon-pie{padding:16px 20px;padding-bottom:max(16px,env(safe-area-inset-bottom));border-top:2px solid rgba(42,20,13,.12);display:grid;gap:12px}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-weight:800}
+.total b{font-family:var(--t-display);font-weight:400;font-size:2.2rem}
+.cajon-vacio{text-align:center;padding:40px 10px;font-weight:700}
+.cajon-vacio .brocha{color:var(--fresa);transform:rotate(-4deg)}
+.aviso-txt{font-size:.85rem;opacity:.8;margin:0}
+
+.toast{position:fixed;z-index:80;left:50%;top:84px;max-width:min(90vw,520px);text-align:center;white-space:normal!important;transform:translate(-50%,-20px);opacity:0;background:var(--fresa);color:#fff;padding:12px 22px;border-radius:999px;
+  font-weight:800;pointer-events:none;transition:all .35s var(--ease);box-shadow:0 12px 30px rgba(0,0,0,.25);white-space:nowrap}
+.toast.ver{opacity:1;transform:translate(-50%,0) rotate(-2deg)}
+
+/* ---------- Reducir movimiento ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  #intro{display:none}
+  .grano{animation:none}
+  .ilumina span{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+<div id="intro" aria-hidden="true"><img src="assets/logo.webp" alt=""><span class="i1">RINCONCITO</span><span class="i2">DULCESITO</span></div>
+
+<header class="barra" id="barra">
+  <a class="marca" href="#inicio" aria-label="Rinconcito Dulcesito, inicio"><img src="assets/logo.webp" alt="" width="44" height="44"><b>Rinconcito Dulcesito</b></a>
+  <nav aria-label="Principal">
+    <a class="enlace" href="#menu">Menú</a>
+    <a class="enlace" href="#pasteles">Pasteles nuevos</a>
+    <a class="enlace" href="#como-pedir">Cómo pedir</a>
+    <a class="btn btn-tinta btn-chico" data-wa href="#">Pedir</a>
+  </nav>
+</header>
+
+<main>
+  <!-- ESCENA 1: portada -->
+  <section class="escena hero" id="inicio" data-bg="#2A140D" data-ink="#FFEDF2" data-acc="#FF3D7F" style="--sbg:#2A140D;--sink:#FFEDF2;--sacc:#FF3D7F">
+    <canvas class="chispas" aria-hidden="true"></canvas>
+    <div class="luces" aria-hidden="true"><span></span><span></span></div>
+    <div class="hero-txt">
+      <p class="brocha" data-t="hero_brocha"></p>
+      <h1 class="gigante"><span class="t-lleno ajusta" data-ancho=".66" data-ancho-movil="1" data-maxvh="27" data-t="hero_t1"></span><span class="t-contorno ajusta" data-ancho=".5" data-ancho-movil=".86" data-maxvh="27" style="--trazo:3px" data-t="hero_t2"></span></h1>
+      <p class="hero-sub" data-t="hero_sub"></p>
+      <div class="acciones">
+        <a class="btn btn-fresa" data-wa href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.2c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .3-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.2 1.3Z"/></svg>Pide por WhatsApp</a>
+        <a class="btn btn-linea" href="#menu">Ver el menú</a>
+      </div>
+    </div>
+    <div class="hero-prods" id="heroProds" aria-hidden="true"></div>
+    <div class="sticker st-a" style="--r:-9deg;--st-bg:#FFC2D4" data-t="st_envio"></div>
+    <div class="sticker st-b" style="--r:7deg;--st-bg:#F29A2E" data-t="st_pedido"></div>
+  </section>
+
+  <!-- Cintas en diagonal -->
+  <section class="cintas" aria-hidden="true" data-bg="#2A140D" data-ink="#FFEDF2" data-acc="#FF3D7F">
+    <div class="cinta cinta-1"><span class="cinta-pista" data-vel="1"></span></div>
+    <div class="cinta cinta-2"><span class="cinta-pista" data-vel="-0.8"></span></div>
+  </section>
+
+  <!-- Escenas por categoría (se generan con los productos) -->
+  <div id="escenas"></div>
+
+  <!-- Texto que se ilumina -->
+  <section class="escena manifiesto" data-bg="#2A140D" data-ink="#FFEDF2" data-acc="#FF3D7F" style="--sbg:#2A140D;--sink:#FFEDF2;--sacc:#FF3D7F">
+    <p class="brocha" data-t="man_brocha"></p>
+    <p class="ilumina" id="ilumina"></p>
+  </section>
+
+  <!-- Pasteles nuevos -->
+  <section class="escena" id="pasteles" data-bg="#FF3D7F" data-ink="#2A140D" data-acc="#FFEDF2" style="--sbg:#FF3D7F;--sink:#2A140D;--sacc:#FFEDF2">
+    <div class="nuevos-cab">
+      <div>
+        <p class="brocha" data-t="pas_brocha"></p>
+        <h2 class="gigante"><span class="t-lleno ajusta" data-ancho="1" data-ancho-movil="1" data-maxvh="22" data-t="pas_t1"></span><span class="t-contorno ajusta" data-ancho=".78" data-ancho-movil=".8" data-maxvh="22" style="--trazo:3px" data-t="pas_t2"></span></h2>
+      </div>
+      <div class="flechas"><button class="flecha" data-riel="-1" aria-label="Ver pasteles anteriores">←</button><button class="flecha" data-riel="1" aria-label="Ver más pasteles">→</button></div>
+    </div>
+    <div class="riel" id="riel" tabindex="0" aria-label="Pasteles nuevos"></div>
+    <div class="sticker st-c" style="--r:-6deg;--st-bg:#FFEDF2" data-t="st_pasteles"></div>
+  </section>
+
+  <!-- Menú completo -->
+  <section class="escena" id="menu" data-bg="#FFEDF2" data-ink="#2A140D" data-acc="#FF3D7F" style="--sbg:#FFEDF2;--sink:#2A140D;--sacc:#FF3D7F">
+    <p class="brocha" data-t="menu_brocha"></p>
+    <h2 class="gigante"><span class="t-lleno ajusta" data-ancho=".6" data-ancho-movil="1" data-maxvh="24" data-t="menu_t1"></span><span class="t-contorno ajusta" data-ancho=".6" data-ancho-movil="1" data-maxvh="24" style="--trazo:3px" data-t="menu_t2"></span></h2>
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar por tipo"></div>
+    <div class="rejilla" id="rejilla"></div>
+  </section>
+
+  <!-- Cómo pedir -->
+  <section class="escena" id="como-pedir" data-bg="#5B2A18" data-ink="#FFEDF2" data-acc="#FFC2D4" style="--sbg:#5B2A18;--sink:#FFEDF2;--sacc:#FFC2D4">
+    <p class="brocha" data-t="pasos_brocha"></p>
+    <h2 class="gigante"><span class="t-lleno ajusta" data-ancho=".7" data-ancho-movil="1" data-maxvh="20" data-t="pasos_t1"></span></h2>
+    <ol class="pasos-lista">
+      <li><h3 data-t="paso1_t"></h3><p data-t="paso1_p"></p></li>
+      <li><h3 data-t="paso2_t"></h3><p data-t="paso2_p"></p></li>
+      <li><h3 data-t="paso3_t"></h3><p data-t="paso3_p"></p></li>
+    </ol>
+  </section>
+
+  <!-- Final -->
+  <section class="escena final" data-bg="#FFC2D4" data-ink="#2A140D" data-acc="#D7193A" style="--sbg:#FFC2D4;--sink:#2A140D;--sacc:#D7193A">
+    <div class="final-dona mueve-lento" id="finalArte" aria-hidden="true"></div>
+    <p class="brocha" data-t="fin_brocha"></p>
+    <h2 class="gigante"><span class="t-lleno ajusta" data-ancho=".62" data-ancho-movil="1" data-maxvh="24" data-t="fin_t1"></span><span class="t-contorno ajusta" data-ancho=".72" data-ancho-movil="1" data-maxvh="24" style="--trazo:3px" data-t="fin_t2"></span></h2>
+    <div class="acciones" style="margin-top:28px">
+      <a class="btn btn-tinta" data-wa href="#">Escríbenos por WhatsApp</a>
+      <button class="btn btn-linea" type="button" data-abrir-carrito>Ver mi pedido</button>
+    </div>
+    <div class="datos">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg><span id="dZona">Puruándiro, Michoacán</span></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Envíos a domicilio</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="dHorario">Lunes a viernes</span></span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="anio"></span> Rinconcito Dulcesito, Puruándiro, Mich.</span>
+  <span><a id="ig" href="https://instagram.com/rinconcito_dulcesito" target="_blank" rel="noopener">Instagram</a> &nbsp; <a href="admin.html" rel="nofollow">Administrar</a></span>
+</footer>
+
+<button class="carrito-btn" id="carritoBtn" type="button" aria-haspopup="dialog" aria-controls="cajon">TU PEDIDO <span class="num" id="carritoNum">0</span></button>
+<div class="velo" id="velo"></div>
+<aside class="cajon" id="cajon" role="dialog" aria-modal="true" aria-labelledby="cajonTitulo" aria-hidden="true">
+  <div class="cajon-cab"><h2 id="cajonTitulo">Tu pedido</h2><button class="cerrar" type="button" id="cerrarCajon" aria-label="Cerrar">×</button></div>
+  <div class="cajon-cuerpo" id="cajonCuerpo"></div>
+  <div class="cajon-pie" id="cajonPie">
+    <div class="total"><span>Total</span><b id="total">$0</b></div>
+    <button class="btn btn-fresa" type="button" id="enviar">Enviar pedido por WhatsApp</button>
+    <p class="aviso-txt" id="aviso"></p>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/shared.js"></script>
+<script>
+(function(){
+'use strict';
+const {ilustracion, dinero, esc, memoria, Datos, CATEGORIAS} = RD;
+const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, c=document) => c.querySelector(s);
+const $$ = (s, c=document) => Array.from(c.querySelectorAll(s));
+document.documentElement.classList.add('color-vivo');
+$('#anio').textContent = new Date().getFullYear();
+setTimeout(() => { const i = $('#intro'); if (i) i.remove(); }, quieto ? 0 : 2000);
+
+let CAT = {productos: [], config: RD.CONFIG_BASE};
+
+/* ---------- Escenas por categoría ---------- */
+const ESCENA = {
+  Pays:      {bg:'#FFC2D4', ink:'#2A140D', acc:'#D7193A', stbg:'#FFEDF2'},
+  Gelatinas: {bg:'#D7193A', ink:'#FFEDF2', acc:'#FFC2D4', stbg:'#FFC2D4'},
+  Bebidas:   {bg:'#FFEDF2', ink:'#2A140D', acc:'#FF3D7F', stbg:'#FF3D7F', stink:'#fff'},
+  Donas:     {bg:'#2A140D', ink:'#FFEDF2', acc:'#FFC2D4', stbg:'#FFC2D4'},
+  Postres:   {bg:'#F29A2E', ink:'#2A140D', acc:'#FFEDF2', stbg:'#2A140D', stink:'#FFEDF2'}
+};
+let T = RD.textos({});
+const COLOR_EXTRA = ['#FFC2D4','#D7193A','#FFEDF2','#2A140D','#F29A2E'];
+
+function visibles(){ return CAT.productos.filter(p => p.disponible !== false); }
+
+function botonesOpciones(p){
+  return (p.opciones||[]).map((o,i) => `<button class="op" type="button" data-agregar="${esc(p.id)}" data-op="${i}" aria-label="Agregar ${esc(p.nombre)}, ${esc(o.n)}, ${dinero(o.p)}">${esc(o.n)} <b>${dinero(o.p)}</b><span class="mas" aria-hidden="true">+</span></button>`).join('');
+}
+function etiquetas(p){ return (p.tags||[]).length ? `<div class="etis">${p.tags.map(t=>`<span class="eti">${esc(t)}</span>`).join('')}</div>` : ''; }
+
+function pintarEscenas(){
+  const cont = $('#escenas'); let html = ''; let n = 0;
+  CATEGORIAS.filter(c => c !== 'Pasteles').concat([...new Set(visibles().map(p=>p.cat))].filter(c => !CATEGORIAS.includes(c))).forEach(cat => {
+    const lista = visibles().filter(p => p.cat === cat);
+    if (!lista.length) return;
+    const e = Object.assign({}, ESCENA[cat] || {bg:COLOR_EXTRA[n%5], ink:'#2A140D', acc:'#FF3D7F', stbg:'#FFEDF2'}, {t1:cat, t2:'del día', brocha:'también hacemos', st:'Por pedido'});
+    Object.entries(T.escenas[cat] || {}).forEach(([k, v]) => { if (String(v || '').trim()) e[k] = v; });
+    if (!ESCENA[cat] && (e.bg==='#2A140D'||e.bg==='#D7193A')) e.ink = '#FFEDF2';
+    const estrella = lista.find(p => p.destacado) || lista[0];
+    const lado = n % 2 ? 'der' : 'izq';
+    html += `<section class="escena" data-bg="${e.bg}" data-ink="${e.ink}" data-acc="${e.acc}" style="--sbg:${e.bg};--sink:${e.ink};--sacc:${e.acc}" aria-labelledby="t-${n}">
+      <div class="pe ${lado}">
+        <div class="pe-arte"><div class="halo"></div><div class="mueve" data-gira="${lado==='der'?-1:1}">${ilustracion(estrella)}</div></div>
+        <div class="pe-txt">
+          <p class="brocha">${esc(e.brocha)}</p>
+          <h2 class="gigante" id="t-${n}"><span class="t-lleno ajusta" data-ancho="1" data-ancho-movil="1" data-maxvh="22">${esc(e.t1)}</span><span class="t-contorno ajusta" data-ancho="1" data-ancho-movil="1" data-maxvh="22" style="--trazo:3px">${esc(e.t2)}</span></h2>
+          <p class="pe-desc">${esc(estrella.desc||'')}</p>
+          <ul class="pe-lista">${lista.map(p => `<li class="pe-item"><div><h3>${esc(p.nombre)}</h3>${etiquetas(p)}</div><div class="ops">${botonesOpciones(p)}</div></li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="sticker" style="--r:${lado==='der'?'8deg':'-8deg'};${lado==='der'?'right:6%':'left:5%'};top:${n%2?'16%':'13%'};--st-bg:${e.stbg};${e.stink?'--st-ink:'+e.stink:''}">${esc(e.st)}</div>
+    </section>`;
+    n++;
+  });
+  cont.innerHTML = html;
+}
+
+function pintarPasteles(){
+  const lista = visibles().filter(p => p.cat === 'Pasteles');
+  $('#pasteles').hidden = !lista.length;
+  $('#riel').innerHTML = lista.map(p => {
+    const o = (p.opciones||[])[0] || {n:'', p:0};
+    return `<article class="pastel" style="--pc:${p.color||'#FFC2D4'}">
+      ${p.nuevo ? '<span class="nuevo-sello">¡nuevo!</span>' : ''}
+      <div class="base">${ilustracion(p)}</div>
+      <h3>${esc(p.nombre)}</h3><p>${esc(p.desc||'')}</p>${etiquetas(p)}
+      <div class="fila"><span class="precio">${dinero(o.p)}</span>
+      <button class="btn btn-tinta btn-chico" type="button" data-agregar="${esc(p.id)}" data-op="0">Agregar</button></div>
+    </article>`;
+  }).join('');
+}
+
+let filtro = 'Todo';
+function pintarMenu(){
+  const cats = ['Todo', ...new Set(visibles().map(p => p.cat))];
+  if (!cats.includes(filtro)) filtro = 'Todo';
+  $('#filtros').innerHTML = cats.map(c => `<button class="filtro" type="button" data-filtro="${esc(c)}" aria-pressed="${c===filtro}">${esc(c)}</button>`).join('');
+  const lista = visibles().filter(p => filtro === 'Todo' || p.cat === filtro);
+  $('#rejilla').innerHTML = lista.length ? lista.map(p => `<article class="m-item" style="--pc:${p.color||'#FFC2D4'}">
+      <div class="base">${ilustracion(p)}</div>
+      <h3>${esc(p.nombre)}</h3><p>${esc(p.desc||'')}</p>
+      <div class="ops">${botonesOpciones(p)}</div></article>`).join('') : '<p class="vacio">Por ahora no hay productos aquí. Escríbenos y te decimos qué hay hoy.</p>';
+}
+
+function pintarHero(){
+  const porId = id => CAT.productos.find(p => p.id === id);
+  const elegidos = [0, 1, 2].map(i => porId((T.portada || [])[i]) || visibles()[i] || RD.PRODUCTOS_BASE[i]);
+  $('#heroProds').innerHTML = elegidos.map((p, i) => `<div class="flota hp-${i+1}" data-prof="${[1.2,.6,.9][i]}">${ilustracion(p)}</div>`).join('');
+  $('#finalArte').innerHTML = ilustracion(porId(T.final) || elegidos[0]);
+}
+
+function pintarConfig(){
+  const c = CAT.config;
+  $$('[data-wa]').forEach(a => { a.href = 'https://wa.me/' + c.whatsapp + '?text=' + encodeURIComponent('¡Hola Rinconcito Dulcesito! Quiero hacer un pedido 🍰'); a.target = '_blank'; a.rel = 'noopener'; });
+  $('#dZona').textContent = c.zona; $('#dHorario').textContent = c.horario;
+  $('#ig').href = 'https://instagram.com/' + c.instagram;
+  $('#aviso').textContent = c.aviso || '';
+}
+
+function pintarTodo(){
+  pintarTextos(); pintarHero(); pintarEscenas(); pintarPasteles(); pintarMenu(); pintarConfig();
+  prepararStickers(); ajustarTitulos(); observarEscenas(); recolectar(); pintarCarrito();
+}
+
+/* ---------- Títulos que llenan el ancho ---------- */
+function ajustarTitulos(){
+  const movil = innerWidth < 821;
+  $$('.ajusta').forEach(el => {
+    const cont = el.parentElement;
+    const frac = parseFloat(movil ? (el.dataset.anchoMovil || 1) : (el.dataset.ancho || 1));
+    el.style.fontSize = '100px'; el.style.display = 'inline-block';
+    const w = el.getBoundingClientRect().width || 1;
+    el.style.display = '';
+    let size = 100 * cont.clientWidth * frac / w;
+    const maxvh = parseFloat(el.dataset.maxvh || 30) * innerHeight / 100;
+    size = Math.max(44, Math.min(size, movil ? 9999 : maxvh));
+    el.style.fontSize = size.toFixed(1) + 'px';
+  });
+}
+
+/* ---------- Color por escena ---------- */
+let obsEscenas;
+function observarEscenas(){
+  if (obsEscenas) obsEscenas.disconnect();
+  const raiz = document.documentElement;
+  obsEscenas = new IntersectionObserver(ents => {
+    ents.forEach(en => {
+      if (!en.isIntersecting) return;
+      const d = en.target.dataset;
+      document.body.style.backgroundColor = d.bg;
+      document.body.style.color = d.ink;
+      ['bg','ink','acc'].forEach(k => { raiz.style.setProperty('--' + k, d[k]); raiz.style.setProperty('--' + k + '-g', d[k]); });
+      $('meta[name=theme-color]').content = d.bg;
+    });
+  }, {rootMargin: '-50% 0px -50% 0px'});
+  $$('[data-bg]').forEach(s => obsEscenas.observe(s));
+}
+
+/* ---------- Stickers arrastrables ---------- */
+function prepararStickers(){
+  $$('.sticker').forEach(st => {
+    if (st.dataset.listo) return; st.dataset.listo = 1;
+    st.setAttribute('aria-hidden', 'true');
+    let x0, y0, dx = 0, dy = 0;
+    st.addEventListener('pointerdown', e => {
+      st.setPointerCapture(e.pointerId); st.classList.add('arrastrando');
+      x0 = e.clientX - dx; y0 = e.clientY - dy;
+    });
+    st.addEventListener('pointermove', e => {
+      if (!st.classList.contains('arrastrando')) return;
+      dx = e.clientX - x0; dy = e.clientY - y0;
+      st.style.setProperty('--dx', dx + 'px'); st.style.setProperty('--dy', dy + 'px');
+    });
+    const soltar = () => st.classList.remove('arrastrando');
+    st.addEventListener('pointerup', soltar); st.addEventListener('pointercancel', soltar);
+  });
+}
+
+/* ---------- Textos editables ---------- */
+function pintarTextos(){
+  T = RD.textos(CAT.config);
+  $$('[data-t]').forEach(el => { el.textContent = T[el.dataset.t] || ''; });
+  const palabras = T.cintas.split(',').map(w => w.trim()).filter(Boolean);
+  $$('.cinta-pista').forEach((p, k) => {
+    const bloque = (k ? palabras.slice().reverse() : palabras).map(w => esc(w) + '<i>✦</i>').join('');
+    p.innerHTML = bloque + bloque + bloque;
+  });
+  $('#ilumina').innerHTML = T.manifiesto.trim().split(/\s+/).map(w => w.startsWith('*') ? `<span class="acento">${esc(w.slice(1))}</span>` : `<span>${esc(w)}</span>`).join(' ');
+}
+
+/* ---------- Movimiento: mouse + scroll en un solo ciclo ---------- */
+let mx = 0, my = 0, tmx = 0, tmy = 0, ultimoY = scrollY, vel = 0, desplaz = [0, 0];
+let flotas = [], mueves = [], palabras = [], pistas = [];
+function recolectar(){
+  flotas = $$('.flota'); mueves = $$('.mueve, .mueve-lento'); palabras = $$('#ilumina span'); pistas = $$('.cinta-pista');
+}
+addEventListener('pointermove', e => { tmx = e.clientX / innerWidth - .5; tmy = e.clientY / innerHeight - .5; }, {passive:true});
+
+function ciclo(){
+  const y = scrollY, h = innerHeight;
+  vel += ((y - ultimoY) - vel) * .2; ultimoY = y;
+  mx += (tmx - mx) * .08; my += (tmy - my) * .08;
+  $('#barra').classList.toggle('solida', y > 40);
+
+  if (!quieto) {
+    flotas.forEach(el => {
+      const k = parseFloat(el.dataset.prof);
+      el.style.transform = `translate3d(${(mx * 50 * k).toFixed(1)}px, ${(my * 40 * k - Math.min(y, h) * .25 * k).toFixed(1)}px, 0) rotate(${(mx * 8 * k + y * .02 * k).toFixed(2)}deg)`;
+    });
+    mueves.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > h + 100) return;
+      const prog = (r.top + r.height / 2 - h / 2) / h;
+      const g = parseFloat(el.dataset.gira || 1);
+      el.style.transform = `translate3d(${(mx * 26).toFixed(1)}px, ${(prog * -90 + my * 20).toFixed(1)}px, 0) rotate(${(prog * 18 * g + mx * 6).toFixed(2)}deg) scale(${(1 - Math.abs(prog) * .12).toFixed(3)})`;
+    });
+    pistas.forEach((p, i) => {
+      const dir = parseFloat(p.dataset.vel);
+      desplaz[i] -= (0.6 + Math.abs(vel) * .35) * dir;
+      const tercio = p.scrollWidth / 3;
+      if (desplaz[i] < -tercio) desplaz[i] += tercio;
+      if (desplaz[i] > 0) desplaz[i] -= tercio;
+      p.style.transform = `translate3d(${desplaz[i].toFixed(1)}px,0,0)`;
+    });
+  }
+  if (palabras.length) {
+    const r = $('#ilumina').getBoundingClientRect();
+    const prog = Math.min(1, Math.max(0, (h * .85 - r.top) / (r.height + h * .35)));
+    const n = quieto ? palabras.length : Math.round(prog * palabras.length);
+    palabras.forEach((s, i) => s.classList.toggle('on', i < n));
+  }
+  requestAnimationFrame(ciclo);
+}
+
+/* ---------- Chispas en la portada ---------- */
+(function(){
+  const cv = $('.chispas'); const ctx = cv.getContext('2d'); const hero = $('.hero');
+  const colores = ['#FF3D7F','#FFC2D4','#F29A2E','#FFEDF2','#D7193A','#D9F27A'];
+  let W, H, dpr, ps = [], activo = true;
+  function medir(){
+    dpr = Math.min(devicePixelRatio || 1, 2); W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = W < 700 ? 18 : 36;
+    ps = Array.from({length:n}, () => ({x:Math.random()*W, y:Math.random()*H, v:.3+Math.random()*.7, r:Math.random()*6, vr:(Math.random()-.5)*.04, l:8+Math.random()*10, c:colores[Math.random()*colores.length|0]}));
+  }
+  function dibujar(){
+    ctx.clearRect(0, 0, W, H);
+    ps.forEach(p => {
+      if (!quieto) { p.y += p.v; p.r += p.vr; p.x += mx * .6; if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; } }
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.globalAlpha = .85;
+      ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-p.l/2, -2.5, p.l, 5, 3) : ctx.rect(-p.l/2, -2.5, p.l, 5); ctx.fill(); ctx.restore();
+    });
+  }
+  function anim(){ if (activo && !quieto) { dibujar(); requestAnimationFrame(anim); } }
+  new IntersectionObserver(e => { const antes = activo; activo = e[0].isIntersecting; if (activo && !antes) anim(); }).observe(hero);
+  medir(); dibujar(); anim();
+  addEventListener('resize', () => { medir(); dibujar(); });
+})();
+
+/* ---------- Riel de pasteles: arrastrar con mouse ---------- */
+(function(){
+  const riel = $('#riel'); let x0, s0, moviendo = false, movido = false;
+  riel.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; moviendo = true; movido = false; x0 = e.clientX; s0 = riel.scrollLeft; });
+  addEventListener('pointermove', e => { if (!moviendo) return; const d = e.clientX - x0; if (Math.abs(d) > 5) { movido = true; riel.classList.add('arrastrando'); } riel.scrollLeft = s0 - d; });
+  addEventListener('pointerup', () => { moviendo = false; riel.classList.remove('arrastrando'); });
+  riel.addEventListener('click', e => { if (movido) { e.stopPropagation(); e.preventDefault(); movido = false; } }, true);
+  $$('[data-riel]').forEach(b => b.addEventListener('click', () => riel.scrollBy({left: parseInt(b.dataset.riel) * riel.clientWidth * .8, behavior: quieto ? 'auto' : 'smooth'})));
+})();
+
+/* ================= Carrito ================= */
+let carrito = memoria.leer('carrito', []);
+function buscar(id){ return CAT.productos.find(p => p.id === id); }
+function guardarCarrito(){ memoria.guardar('carrito', carrito); }
+function agregar(id, op){
+  const p = buscar(id); if (!p) return;
+  const o = p.opciones[op]; if (!o) return;
+  const r = carrito.find(c => c.id === id && c.op === op);
+  if (r) r.cant++; else carrito.push({id, op, cant:1});
+  guardarCarrito(); pintarCarrito();
+  const b = $('#carritoBtn'); b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
+  avisar(`Agregaste ${p.nombre}`);
+}
+function lineas(){
+  return carrito.map(c => { const p = buscar(c.id); const o = p && p.opciones[c.op]; return p && o ? {c, p, o} : null; }).filter(Boolean);
+}
+function pintarCarrito(){
+  carrito = carrito.filter(c => { const p = buscar(c.id); return p && p.opciones[c.op]; });
+  const ls = lineas(); const total = ls.reduce((s, l) => s + l.o.p * l.c.cant, 0);
+  $('#carritoNum').textContent = ls.reduce((s, l) => s + l.c.cant, 0);
+  $('#total').textContent = dinero(total);
+  $('#enviar').disabled = !ls.length; $('#enviar').style.opacity = ls.length ? 1 : .5;
+  const cuerpo = $('#cajonCuerpo');
+  if (!ls.length) { cuerpo.innerHTML = `<div class="cajon-vacio"><p class="brocha">¿todavía nada?</p><p>Toca el + en cualquier postre para agregarlo aquí.</p><a class="btn btn-fresa btn-chico" href="#menu" data-cerrar>Ver el menú</a></div>`; return; }
+  const previo = memoria.leer('cliente', {});
+  cuerpo.innerHTML = ls.map((l, i) => `<div class="renglon"><div class="mini" style="--pc:${l.p.color||'#FFC2D4'}">${ilustracion(l.p)}</div>
+      <div><b>${esc(l.p.nombre)}</b><small>${esc(l.o.n)} · ${dinero(l.o.p)}</small></div>
+      <div class="cant"><button type="button" data-cant="${i}" data-d="-1" aria-label="Quitar uno">−</button><span>${l.c.cant}</span><button type="button" data-cant="${i}" data-d="1" aria-label="Agregar uno">+</button></div></div>`).join('') +
+    `<form class="formulario" id="datos" onsubmit="return false">
+      <label>Tu nombre<input name="nombre" autocomplete="name" required value="${esc(previo.nombre||'')}"></label>
+      <div><span style="font-weight:800;font-size:.9rem">Entrega</span><div class="segmento">
+        <input type="radio" name="entrega" id="e1" value="A domicilio" ${previo.entrega!=='Paso a recoger'?'checked':''}><label for="e1">A domicilio</label>
+        <input type="radio" name="entrega" id="e2" value="Paso a recoger" ${previo.entrega==='Paso a recoger'?'checked':''}><label for="e2">Paso a recoger</label></div></div>
+      <label id="dirWrap">Dirección<input name="direccion" autocomplete="street-address" value="${esc(previo.direccion||'')}"></label>
+      <label>¿Para cuándo?<input name="fecha" type="date" min="${RD.hoy()}"></label>
+      <label>Nota (opcional)<textarea name="nota" placeholder="Ej. que diga Feliz cumpleaños Ana"></textarea></label>
+    </form>`;
+  const dir = () => { $('#dirWrap').hidden = $('#e2').checked; };
+  $$('input[name=entrega]').forEach(r => r.addEventListener('change', dir)); dir();
+}
+function enviar(){
+  const ls = lineas(); if (!ls.length) return;
+  const f = $('#datos'); const d = Object.fromEntries(new FormData(f));
+  if (!d.nombre.trim()) { f.nombre.focus(); avisar('Escribe tu nombre para el pedido'); return; }
+  memoria.guardar('cliente', {nombre:d.nombre, entrega:d.entrega, direccion:d.direccion});
+  const total = ls.reduce((s, l) => s + l.o.p * l.c.cant, 0);
+  let t = '¡Hola Rinconcito Dulcesito! Quiero hacer un pedido:\n\n';
+  ls.forEach(l => { t += `• ${l.c.cant} × ${l.p.nombre} (${l.o.n}) — ${dinero(l.o.p * l.c.cant)}\n`; });
+  t += `\n*Total: ${dinero(total)}*\n\nNombre: ${d.nombre}\nEntrega: ${d.entrega}`;
+  if (d.entrega === 'A domicilio' && d.direccion) t += `\nDirección: ${d.direccion}`;
+  if (d.fecha) { const [a, m, dd] = d.fecha.split('-'); t += `\nPara el: ${dd}/${m}/${a}`; }
+  if (d.nota) t += `\nNota: ${d.nota}`;
+  window.open('https://wa.me/' + CAT.config.whatsapp + '?text=' + encodeURIComponent(t), '_blank', 'noopener');
+}
+let ultimoFoco;
+function abrirCajon(){ ultimoFoco = document.activeElement; $('#cajon').classList.add('abierto'); $('#velo').classList.add('abierto'); $('#cajon').setAttribute('aria-hidden','false'); setTimeout(() => $('#cerrarCajon').focus(), 50); }
+function cerrarCajon(){ $('#cajon').classList.remove('abierto'); $('#velo').classList.remove('abierto'); $('#cajon').setAttribute('aria-hidden','true'); if (ultimoFoco) ultimoFoco.focus(); }
+let tToast;
+function avisar(t){ const el = $('#toast'); el.textContent = t; el.classList.add('ver'); clearTimeout(tToast); tToast = setTimeout(() => el.classList.remove('ver'), 1800); }
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-agregar]'); if (a) { agregar(a.dataset.agregar, parseInt(a.dataset.op)); return; }
+  const fl = e.target.closest('[data-filtro]'); if (fl) { filtro = fl.dataset.filtro; pintarMenu(); return; }
+  const c = e.target.closest('[data-cant]');
+  if (c) { const l = lineas()[c.dataset.cant]; if (l) { l.c.cant += parseInt(c.dataset.d); if (l.c.cant < 1) carrito = carrito.filter(x => x !== l.c); guardarCarrito(); pintarCarrito(); } return; }
+  if (e.target.closest('[data-abrir-carrito]')) { abrirCajon(); return; }
+  if (e.target.closest('[data-cerrar]')) cerrarCajon();
+});
+$('#carritoBtn').addEventListener('click', abrirCajon);
+$('#cerrarCajon').addEventListener('click', cerrarCajon);
+$('#velo').addEventListener('click', cerrarCajon);
+$('#enviar').addEventListener('click', enviar);
+addEventListener('keydown', e => { if (e.key === 'Escape' && $('#cajon').classList.contains('abierto')) cerrarCajon(); });
+
+/* ---------- Arranque ---------- */
+let tRes; addEventListener('resize', () => { clearTimeout(tRes); tRes = setTimeout(ajustarTitulos, 120); });
+(async function(){
+  CAT = {productos: memoria.leer('productos', null) || RD.copia(RD.PRODUCTOS_BASE), config: Object.assign({}, RD.CONFIG_BASE, memoria.leer('config', {}))};
+  pintarTodo();
+  requestAnimationFrame(ciclo);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarTitulos);
+  const nube = await Datos.catalogo();
+  if (JSON.stringify(nube) !== JSON.stringify(CAT)) { CAT = nube; pintarTodo(); }
+})();
+})();
+</script>
+</body>
+</html>

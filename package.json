@@ -1,0 +1,10 @@
+{
+  "name": "rinconcito-dulcesito",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sitio y panel de Rinconcito Dulcesito",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
